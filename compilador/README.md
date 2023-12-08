@@ -9,3 +9,8 @@ Execução do Compilador:
 ```
 python main.py
 ```
+
+Integrantes do Grupo:
+```
+Filipe Mesquita Castelo Branco
+```
