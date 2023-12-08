@@ -1,0 +1,10 @@
+PROGRAM exemplo;
+VAR
+     a : INTEGER;
+     b : INTEGER;
+     c : INTEGER;
+BEGIN
+    a := 10;
+    b := 20;
+    c := b * a;
+END.

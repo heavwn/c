@@ -1,0 +1,648 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMA
+    EMPTY
+    MINUS
+    READ
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON declarations block DOT
+Rule 2     declarations -> VAR declarations_list
+Rule 3     declarations -> empty
+Rule 4     declarations_list -> ID COLON type SEMICOLON declarations_list
+Rule 5     declarations_list -> ID COLON type declarations_list
+Rule 6     declarations_list -> empty
+Rule 7     type -> INTEGER SEMICOLON
+Rule 8     type -> FLOAT SEMICOLON
+Rule 9     type -> STRING SEMICOLON
+Rule 10    type -> BOOLEAN SEMICOLON
+Rule 11    type -> REAL SEMICOLON
+Rule 12    block -> BEGIN statements END
+Rule 13    statements -> statement SEMICOLON statements
+Rule 14    statements -> empty
+Rule 15    expression -> expression PLUS expression
+Rule 16    expression -> term
+Rule 17    term -> term TIMES factor
+Rule 18    term -> term DIVIDE factor
+Rule 19    term -> factor
+Rule 20    factor -> NUM
+Rule 21    factor -> NUM DOT NUM
+Rule 22    factor -> ID
+Rule 23    factor -> STRING
+Rule 24    statement -> WRITE LPAREN expression RPAREN
+Rule 25    statement -> ID ASSIGN expression
+Rule 26    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 25
+BEGIN                : 12
+BOOLEAN              : 10
+COLON                : 4 5
+COMMA                : 
+DIVIDE               : 18
+DOT                  : 1 21
+EMPTY                : 
+END                  : 12
+FLOAT                : 8
+ID                   : 1 4 5 22 25
+INTEGER              : 7
+LPAREN               : 24
+MINUS                : 
+NUM                  : 20 21 21
+PLUS                 : 15
+PROGRAM              : 1
+READ                 : 
+REAL                 : 11
+RPAREN               : 24
+SEMICOLON            : 1 4 7 8 9 10 11 13
+STRING               : 9 23
+TIMES                : 17
+VAR                  : 2
+WRITE                : 24
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 1
+declarations         : 1
+declarations_list    : 2 4 5
+empty                : 3 6 14
+expression           : 15 15 24 25
+factor               : 17 18 19
+program              : 0
+statement            : 13
+statements           : 12 13
+term                 : 16 17 18
+type                 : 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID SEMICOLON declarations block DOT
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID SEMICOLON declarations block DOT
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . SEMICOLON declarations block DOT
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID SEMICOLON . declarations block DOT
+    (2) declarations -> . VAR declarations_list
+    (3) declarations -> . empty
+    (26) empty -> .
+
+    VAR             shift and go to state 6
+    BEGIN           reduce using rule 26 (empty -> .)
+
+    declarations                   shift and go to state 5
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) program -> PROGRAM ID SEMICOLON declarations . block DOT
+    (12) block -> . BEGIN statements END
+
+    BEGIN           shift and go to state 9
+
+    block                          shift and go to state 8
+
+state 6
+
+    (2) declarations -> VAR . declarations_list
+    (4) declarations_list -> . ID COLON type SEMICOLON declarations_list
+    (5) declarations_list -> . ID COLON type declarations_list
+    (6) declarations_list -> . empty
+    (26) empty -> .
+
+    ID              shift and go to state 11
+    BEGIN           reduce using rule 26 (empty -> .)
+
+    declarations_list              shift and go to state 10
+    empty                          shift and go to state 12
+
+state 7
+
+    (3) declarations -> empty .
+
+    BEGIN           reduce using rule 3 (declarations -> empty .)
+
+
+state 8
+
+    (1) program -> PROGRAM ID SEMICOLON declarations block . DOT
+
+    DOT             shift and go to state 13
+
+
+state 9
+
+    (12) block -> BEGIN . statements END
+    (13) statements -> . statement SEMICOLON statements
+    (14) statements -> . empty
+    (24) statement -> . WRITE LPAREN expression RPAREN
+    (25) statement -> . ID ASSIGN expression
+    (26) empty -> .
+
+    WRITE           shift and go to state 17
+    ID              shift and go to state 18
+    END             reduce using rule 26 (empty -> .)
+
+    statements                     shift and go to state 14
+    statement                      shift and go to state 15
+    empty                          shift and go to state 16
+
+state 10
+
+    (2) declarations -> VAR declarations_list .
+
+    BEGIN           reduce using rule 2 (declarations -> VAR declarations_list .)
+
+
+state 11
+
+    (4) declarations_list -> ID . COLON type SEMICOLON declarations_list
+    (5) declarations_list -> ID . COLON type declarations_list
+
+    COLON           shift and go to state 19
+
+
+state 12
+
+    (6) declarations_list -> empty .
+
+    BEGIN           reduce using rule 6 (declarations_list -> empty .)
+
+
+state 13
+
+    (1) program -> PROGRAM ID SEMICOLON declarations block DOT .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID SEMICOLON declarations block DOT .)
+
+
+state 14
+
+    (12) block -> BEGIN statements . END
+
+    END             shift and go to state 20
+
+
+state 15
+
+    (13) statements -> statement . SEMICOLON statements
+
+    SEMICOLON       shift and go to state 21
+
+
+state 16
+
+    (14) statements -> empty .
+
+    END             reduce using rule 14 (statements -> empty .)
+
+
+state 17
+
+    (24) statement -> WRITE . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 22
+
+
+state 18
+
+    (25) statement -> ID . ASSIGN expression
+
+    ASSIGN          shift and go to state 23
+
+
+state 19
+
+    (4) declarations_list -> ID COLON . type SEMICOLON declarations_list
+    (5) declarations_list -> ID COLON . type declarations_list
+    (7) type -> . INTEGER SEMICOLON
+    (8) type -> . FLOAT SEMICOLON
+    (9) type -> . STRING SEMICOLON
+    (10) type -> . BOOLEAN SEMICOLON
+    (11) type -> . REAL SEMICOLON
+
+    INTEGER         shift and go to state 25
+    FLOAT           shift and go to state 26
+    STRING          shift and go to state 27
+    BOOLEAN         shift and go to state 28
+    REAL            shift and go to state 29
+
+    type                           shift and go to state 24
+
+state 20
+
+    (12) block -> BEGIN statements END .
+
+    DOT             reduce using rule 12 (block -> BEGIN statements END .)
+
+
+state 21
+
+    (13) statements -> statement SEMICOLON . statements
+    (13) statements -> . statement SEMICOLON statements
+    (14) statements -> . empty
+    (24) statement -> . WRITE LPAREN expression RPAREN
+    (25) statement -> . ID ASSIGN expression
+    (26) empty -> .
+
+    WRITE           shift and go to state 17
+    ID              shift and go to state 18
+    END             reduce using rule 26 (empty -> .)
+
+    statement                      shift and go to state 15
+    statements                     shift and go to state 30
+    empty                          shift and go to state 16
+
+state 22
+
+    (24) statement -> WRITE LPAREN . expression RPAREN
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . term
+    (17) term -> . term TIMES factor
+    (18) term -> . term DIVIDE factor
+    (19) term -> . factor
+    (20) factor -> . NUM
+    (21) factor -> . NUM DOT NUM
+    (22) factor -> . ID
+    (23) factor -> . STRING
+
+    NUM             shift and go to state 34
+    ID              shift and go to state 35
+    STRING          shift and go to state 36
+
+    expression                     shift and go to state 31
+    term                           shift and go to state 32
+    factor                         shift and go to state 33
+
+state 23
+
+    (25) statement -> ID ASSIGN . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . term
+    (17) term -> . term TIMES factor
+    (18) term -> . term DIVIDE factor
+    (19) term -> . factor
+    (20) factor -> . NUM
+    (21) factor -> . NUM DOT NUM
+    (22) factor -> . ID
+    (23) factor -> . STRING
+
+    NUM             shift and go to state 34
+    ID              shift and go to state 35
+    STRING          shift and go to state 36
+
+    expression                     shift and go to state 37
+    term                           shift and go to state 32
+    factor                         shift and go to state 33
+
+state 24
+
+    (4) declarations_list -> ID COLON type . SEMICOLON declarations_list
+    (5) declarations_list -> ID COLON type . declarations_list
+    (4) declarations_list -> . ID COLON type SEMICOLON declarations_list
+    (5) declarations_list -> . ID COLON type declarations_list
+    (6) declarations_list -> . empty
+    (26) empty -> .
+
+    SEMICOLON       shift and go to state 38
+    ID              shift and go to state 11
+    BEGIN           reduce using rule 26 (empty -> .)
+
+    declarations_list              shift and go to state 39
+    empty                          shift and go to state 12
+
+state 25
+
+    (7) type -> INTEGER . SEMICOLON
+
+    SEMICOLON       shift and go to state 40
+
+
+state 26
+
+    (8) type -> FLOAT . SEMICOLON
+
+    SEMICOLON       shift and go to state 41
+
+
+state 27
+
+    (9) type -> STRING . SEMICOLON
+
+    SEMICOLON       shift and go to state 42
+
+
+state 28
+
+    (10) type -> BOOLEAN . SEMICOLON
+
+    SEMICOLON       shift and go to state 43
+
+
+state 29
+
+    (11) type -> REAL . SEMICOLON
+
+    SEMICOLON       shift and go to state 44
+
+
+state 30
+
+    (13) statements -> statement SEMICOLON statements .
+
+    END             reduce using rule 13 (statements -> statement SEMICOLON statements .)
+
+
+state 31
+
+    (24) statement -> WRITE LPAREN expression . RPAREN
+    (15) expression -> expression . PLUS expression
+
+    RPAREN          shift and go to state 45
+    PLUS            shift and go to state 46
+
+
+state 32
+
+    (16) expression -> term .
+    (17) term -> term . TIMES factor
+    (18) term -> term . DIVIDE factor
+
+    RPAREN          reduce using rule 16 (expression -> term .)
+    PLUS            reduce using rule 16 (expression -> term .)
+    SEMICOLON       reduce using rule 16 (expression -> term .)
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 48
+
+
+state 33
+
+    (19) term -> factor .
+
+    TIMES           reduce using rule 19 (term -> factor .)
+    DIVIDE          reduce using rule 19 (term -> factor .)
+    RPAREN          reduce using rule 19 (term -> factor .)
+    PLUS            reduce using rule 19 (term -> factor .)
+    SEMICOLON       reduce using rule 19 (term -> factor .)
+
+
+state 34
+
+    (20) factor -> NUM .
+    (21) factor -> NUM . DOT NUM
+
+    TIMES           reduce using rule 20 (factor -> NUM .)
+    DIVIDE          reduce using rule 20 (factor -> NUM .)
+    RPAREN          reduce using rule 20 (factor -> NUM .)
+    PLUS            reduce using rule 20 (factor -> NUM .)
+    SEMICOLON       reduce using rule 20 (factor -> NUM .)
+    DOT             shift and go to state 49
+
+
+state 35
+
+    (22) factor -> ID .
+
+    TIMES           reduce using rule 22 (factor -> ID .)
+    DIVIDE          reduce using rule 22 (factor -> ID .)
+    RPAREN          reduce using rule 22 (factor -> ID .)
+    PLUS            reduce using rule 22 (factor -> ID .)
+    SEMICOLON       reduce using rule 22 (factor -> ID .)
+
+
+state 36
+
+    (23) factor -> STRING .
+
+    TIMES           reduce using rule 23 (factor -> STRING .)
+    DIVIDE          reduce using rule 23 (factor -> STRING .)
+    RPAREN          reduce using rule 23 (factor -> STRING .)
+    PLUS            reduce using rule 23 (factor -> STRING .)
+    SEMICOLON       reduce using rule 23 (factor -> STRING .)
+
+
+state 37
+
+    (25) statement -> ID ASSIGN expression .
+    (15) expression -> expression . PLUS expression
+
+    SEMICOLON       reduce using rule 25 (statement -> ID ASSIGN expression .)
+    PLUS            shift and go to state 46
+
+
+state 38
+
+    (4) declarations_list -> ID COLON type SEMICOLON . declarations_list
+    (4) declarations_list -> . ID COLON type SEMICOLON declarations_list
+    (5) declarations_list -> . ID COLON type declarations_list
+    (6) declarations_list -> . empty
+    (26) empty -> .
+
+    ID              shift and go to state 11
+    BEGIN           reduce using rule 26 (empty -> .)
+
+    declarations_list              shift and go to state 50
+    empty                          shift and go to state 12
+
+state 39
+
+    (5) declarations_list -> ID COLON type declarations_list .
+
+    BEGIN           reduce using rule 5 (declarations_list -> ID COLON type declarations_list .)
+
+
+state 40
+
+    (7) type -> INTEGER SEMICOLON .
+
+    SEMICOLON       reduce using rule 7 (type -> INTEGER SEMICOLON .)
+    ID              reduce using rule 7 (type -> INTEGER SEMICOLON .)
+    BEGIN           reduce using rule 7 (type -> INTEGER SEMICOLON .)
+
+
+state 41
+
+    (8) type -> FLOAT SEMICOLON .
+
+    SEMICOLON       reduce using rule 8 (type -> FLOAT SEMICOLON .)
+    ID              reduce using rule 8 (type -> FLOAT SEMICOLON .)
+    BEGIN           reduce using rule 8 (type -> FLOAT SEMICOLON .)
+
+
+state 42
+
+    (9) type -> STRING SEMICOLON .
+
+    SEMICOLON       reduce using rule 9 (type -> STRING SEMICOLON .)
+    ID              reduce using rule 9 (type -> STRING SEMICOLON .)
+    BEGIN           reduce using rule 9 (type -> STRING SEMICOLON .)
+
+
+state 43
+
+    (10) type -> BOOLEAN SEMICOLON .
+
+    SEMICOLON       reduce using rule 10 (type -> BOOLEAN SEMICOLON .)
+    ID              reduce using rule 10 (type -> BOOLEAN SEMICOLON .)
+    BEGIN           reduce using rule 10 (type -> BOOLEAN SEMICOLON .)
+
+
+state 44
+
+    (11) type -> REAL SEMICOLON .
+
+    SEMICOLON       reduce using rule 11 (type -> REAL SEMICOLON .)
+    ID              reduce using rule 11 (type -> REAL SEMICOLON .)
+    BEGIN           reduce using rule 11 (type -> REAL SEMICOLON .)
+
+
+state 45
+
+    (24) statement -> WRITE LPAREN expression RPAREN .
+
+    SEMICOLON       reduce using rule 24 (statement -> WRITE LPAREN expression RPAREN .)
+
+
+state 46
+
+    (15) expression -> expression PLUS . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . term
+    (17) term -> . term TIMES factor
+    (18) term -> . term DIVIDE factor
+    (19) term -> . factor
+    (20) factor -> . NUM
+    (21) factor -> . NUM DOT NUM
+    (22) factor -> . ID
+    (23) factor -> . STRING
+
+    NUM             shift and go to state 34
+    ID              shift and go to state 35
+    STRING          shift and go to state 36
+
+    expression                     shift and go to state 51
+    term                           shift and go to state 32
+    factor                         shift and go to state 33
+
+state 47
+
+    (17) term -> term TIMES . factor
+    (20) factor -> . NUM
+    (21) factor -> . NUM DOT NUM
+    (22) factor -> . ID
+    (23) factor -> . STRING
+
+    NUM             shift and go to state 34
+    ID              shift and go to state 35
+    STRING          shift and go to state 36
+
+    factor                         shift and go to state 52
+
+state 48
+
+    (18) term -> term DIVIDE . factor
+    (20) factor -> . NUM
+    (21) factor -> . NUM DOT NUM
+    (22) factor -> . ID
+    (23) factor -> . STRING
+
+    NUM             shift and go to state 34
+    ID              shift and go to state 35
+    STRING          shift and go to state 36
+
+    factor                         shift and go to state 53
+
+state 49
+
+    (21) factor -> NUM DOT . NUM
+
+    NUM             shift and go to state 54
+
+
+state 50
+
+    (4) declarations_list -> ID COLON type SEMICOLON declarations_list .
+
+    BEGIN           reduce using rule 4 (declarations_list -> ID COLON type SEMICOLON declarations_list .)
+
+
+state 51
+
+    (15) expression -> expression PLUS expression .
+    (15) expression -> expression . PLUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+    RPAREN          reduce using rule 15 (expression -> expression PLUS expression .)
+    SEMICOLON       reduce using rule 15 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 46
+
+  ! PLUS            [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+
+
+state 52
+
+    (17) term -> term TIMES factor .
+
+    TIMES           reduce using rule 17 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 17 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 17 (term -> term TIMES factor .)
+    PLUS            reduce using rule 17 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 17 (term -> term TIMES factor .)
+
+
+state 53
+
+    (18) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 18 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 18 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 18 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 18 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 18 (term -> term DIVIDE factor .)
+
+
+state 54
+
+    (21) factor -> NUM DOT NUM .
+
+    TIMES           reduce using rule 21 (factor -> NUM DOT NUM .)
+    DIVIDE          reduce using rule 21 (factor -> NUM DOT NUM .)
+    RPAREN          reduce using rule 21 (factor -> NUM DOT NUM .)
+    PLUS            reduce using rule 21 (factor -> NUM DOT NUM .)
+    SEMICOLON       reduce using rule 21 (factor -> NUM DOT NUM .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 51 resolved as shift
